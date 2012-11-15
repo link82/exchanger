@@ -56,7 +56,7 @@ module Exchanger
     element :meeting_workspace_url
     element :net_show_url
     
-    def create
+    def create()
       
       CreateItem.run(:folder_id => parent_folder_id.id, :items => [self], :send_meeting_invitations => "SendToAllAndSaveCopy")
       

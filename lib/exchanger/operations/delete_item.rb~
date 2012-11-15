@@ -16,7 +16,6 @@ module Exchanger
       # Reset request options to defaults.
       def reset
         @item_ids = []
-        @send_meeting_invitations = nil
       end
 
       def to_xml
@@ -26,6 +25,8 @@ module Exchanger
             
             hash = {"xmlns" => NS["m"], "DeleteType" => "HardDelete"}
             hash.merge!({"SendMeetingInvitations" => send_meeting_invitations}) if !send_meeting_invitations.nil?
+            
+            
             
               xml.DeleteItem(hash) do
                 xml.ItemIds do

@@ -10,18 +10,13 @@ module Exchanger
       # Reset request options to defaults.
       def reset
         @items = []
-        @send_meeting_invitations = nil
       end
 
       def to_xml
         Nokogiri::XML::Builder.new do |xml|
           xml.send("soap:Envelope", "xmlns:soap" => NS["soap"], "xmlns:t" => NS["t"], "xmlns:xsi" => NS["xsi"], "xmlns:xsd" => NS["xsd"]) do
             xml.send("soap:Body") do
-            
-              hash = {"xmlns" => NS["m"], "ConflictResolution" => "AlwaysOverwrite"}
-              hash.merge!({"SendMeetingInvitations" => send_meeting_invitations}) if !send_meeting_invitations.nil?
-            
-              xml.UpdateItem(hash) do
+              xml.UpdateItem("xmlns" => NS["m"], "ConflictResolution" => "AlwaysOverwrite") do
                 xml.ItemChanges do
                   items.each do |item|
                     item_change = item.to_xml_change
